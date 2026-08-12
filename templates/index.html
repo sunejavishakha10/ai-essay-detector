@@ -1,27 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VeriText AI Essay Detector</title>
+    <title>VeriText — Explainable NLP Instrument</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        code, textarea, .mono { font-family: 'JetBrains Mono', monospace; }
+        .glow-indigo { box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.3); }
+        .glow-card { background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%); }
+    </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen font-sans">
-    <div class="max-w-5xl mx-auto px-4 py-8">
+<body class="bg-[#0B0F19] text-slate-100 min-h-screen relative overflow-x-hidden selection:bg-indigo-500 selection:text-white">
+
+    <!-- Ambient Glowing Background Orbs -->
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto px-4 py-10 relative z-10">
         
-        <!-- Header -->
-        <header class="mb-8 text-center">
-            <h1 class="text-4xl font-extrabold text-indigo-400 tracking-tight mb-2">VeriText AI Detector</h1>
-            <p class="text-slate-400">Explainable Statistical Instrument for Admissions Essay Analysis</p>
+        <!-- Futuristic Header -->
+        <header class="mb-10 text-center space-y-3">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-xs font-semibold tracking-wide uppercase backdrop-blur-md">
+                <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+                Local Statistical NLP Engine v1.0
+            </div>
+            <h1 class="text-5xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 via-white to-purple-400">
+                VeriText <span class="text-indigo-500">.</span>
+            </h1>
+            <p class="text-slate-400 max-w-xl mx-auto text-sm font-medium leading-relaxed">
+                An explainable, non-LLM statistical instrument built for admissions essay verification through sentence variance and lexical density.
+            </p>
         </header>
 
-        <!-- Main Form & Input -->
-        <div class="bg-slate-800/90 rounded-2xl p-6 shadow-2xl border border-slate-700/80 mb-8">
-            <label for="essay" class="block text-sm font-semibold text-slate-300 mb-2">Paste College Essay Below:</label>
-            <textarea id="essay" rows="7" class="w-full bg-slate-950 text-slate-100 p-4 rounded-xl border border-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4 font-mono text-sm" placeholder="Paste essay here to analyze sentence variance, vocabulary diversity, and transition patterns..."></textarea>
+        <!-- Main Workspace Card -->
+        <div class="glow-card backdrop-blur-xl rounded-2xl p-6 border border-slate-800/80 shadow-2xl glow-indigo mb-8">
+            <div class="flex items-center justify-between mb-3">
+                <label for="essay" class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                    <span>⚡</span> Essay Input Corridor
+                </label>
+                <span class="text-xs text-slate-500 font-mono">Zero API Dependencies</span>
+            </div>
             
-            <button onclick="analyzeEssay()" class="w-full bg-indigo-600 hover:bg-indigo-500 font-bold py-3.5 px-6 rounded-xl transition duration-200 shadow-lg shadow-indigo-600/30">
-                Run Statistical Evidence Analysis
+            <textarea id="essay" rows="7" class="w-full bg-[#070A11] text-slate-200 p-4 rounded-xl border border-slate-800/80 focus:border-indigo-500/80 focus:ring-2 focus:ring-indigo-500/20 transition duration-200 outline-none font-mono text-sm leading-relaxed mb-4 placeholder-slate-600 resize-y" placeholder="Paste admissions essay here to compute sentence variance, burstiness, and lexical diversity..."></textarea>
+            
+            <button onclick="analyzeEssay()" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-4 px-6 rounded-xl transition duration-300 shadow-lg shadow-indigo-600/25 flex items-center justify-center gap-2 text-sm tracking-wide uppercase">
+                <span>🔬</span> Execute Evidence Extraction
             </button>
         </div>
 
@@ -30,59 +56,77 @@
             
             <!-- Metric Cards Grid -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-slate-800/90 p-4 rounded-xl border border-slate-700/80 text-center">
-                    <p class="text-xs text-slate-400 font-bold uppercase">Total Words</p>
-                    <p id="total-words" class="text-2xl font-extrabold text-indigo-400 mt-1">0</p>
+                <div class="glow-card p-5 rounded-2xl border border-slate-800 text-center hover:border-slate-700 transition">
+                    <p class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Word Volume</p>
+                    <p id="total-words" class="text-3xl font-black text-indigo-400 mt-2 font-mono">0</p>
                 </div>
-                <div class="bg-slate-800/90 p-4 rounded-xl border border-slate-700/80 text-center">
-                    <p class="text-xs text-slate-400 font-bold uppercase">Sentence Variance</p>
-                    <p id="sentence-variance" class="text-2xl font-extrabold text-indigo-400 mt-1">0</p>
+                <div class="glow-card p-5 rounded-2xl border border-slate-800 text-center hover:border-slate-700 transition">
+                    <p class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Length Variance</p>
+                    <p id="sentence-variance" class="text-3xl font-black text-indigo-400 mt-2 font-mono">0</p>
                 </div>
-                <div class="bg-slate-800/90 p-4 rounded-xl border border-slate-700/80 text-center">
-                    <p class="text-xs text-slate-400 font-bold uppercase">Vocab Diversity (TTR)</p>
-                    <p id="ttr-score" class="text-2xl font-extrabold text-indigo-400 mt-1">0</p>
+                <div class="glow-card p-5 rounded-2xl border border-slate-800 text-center hover:border-slate-700 transition">
+                    <p class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Vocab Density (TTR)</p>
+                    <p id="ttr-score" class="text-3xl font-black text-indigo-400 mt-2 font-mono">0</p>
                 </div>
-                <div class="bg-slate-800/90 p-4 rounded-xl border border-slate-700/80 text-center">
-                    <p class="text-xs text-slate-400 font-bold uppercase">AI Transition Words</p>
-                    <p id="ai-transitions" class="text-2xl font-extrabold text-amber-400 mt-1">0</p>
+                <div class="glow-card p-5 rounded-2xl border border-slate-800 text-center hover:border-slate-700 transition">
+                    <p class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">AI Transitions</p>
+                    <p id="ai-transitions" class="text-3xl font-black text-amber-400 mt-2 font-mono">0</p>
                 </div>
             </div>
 
             <!-- Sentence Highlighting Output -->
-            <div class="bg-slate-800/90 rounded-2xl p-6 border border-slate-700/80 shadow-xl">
-                <div class="flex items-center justify-between mb-4">
+            <div class="glow-card rounded-2xl p-6 border border-slate-800 shadow-2xl">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-800/80">
                     <div>
-                        <h2 class="text-lg font-bold text-slate-200">Rhythmic Sentence Evidence</h2>
-                        <p class="text-xs text-slate-400">Click any highlighted sentence to view its specific statistical breakdown</p>
+                        <h2 class="text-base font-bold text-slate-100 flex items-center gap-2">
+                            <span>🎯</span> Rhythmic Evidence Map
+                        </h2>
+                        <p class="text-xs text-slate-400">Interactive sentence classification engine. Click any block to inspect details.</p>
                     </div>
                     <div class="flex items-center gap-3 text-xs font-semibold">
-                        <span class="flex items-center gap-1 text-emerald-400"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Natural Rhythm</span>
-                        <span class="flex items-center gap-1 text-amber-400"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Monotonous</span>
-                        <span class="flex items-center gap-1 text-red-400"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> AI Transition</span>
+                        <span class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-400">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Natural
+                        </span>
+                        <span class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-950/60 border border-amber-500/30 text-amber-400">
+                            <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Monotonous
+                        </span>
+                        <span class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-red-950/60 border border-red-500/30 text-red-400">
+                            <span class="w-1.5 h-1.5 rounded-full bg-red-400"></span> AI Marker
+                        </span>
                     </div>
                 </div>
-                <div id="highlighted-text" class="leading-relaxed text-slate-300"></div>
+
+                <div id="highlighted-text" class="leading-relaxed text-slate-300 font-mono text-sm space-y-1"></div>
                 
-                <!-- Inspector Box for Selected Sentence -->
-                <div id="inspector" class="mt-4 p-4 bg-slate-950 rounded-xl border border-indigo-500/40 hidden">
-                    <p class="text-xs font-bold text-indigo-400 uppercase tracking-wider mb-1">Evidence Inspector</p>
-                    <p id="inspector-reason" class="text-sm text-slate-200"></p>
+                <!-- Inspector Box -->
+                <div id="inspector" class="mt-6 p-4 bg-[#05080E] rounded-xl border border-indigo-500/30 hidden animate-fade-in">
+                    <p class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest mb-1 flex items-center gap-1">
+                        <span>🔍</span> Evidence Breakdown
+                    </p>
+                    <p id="inspector-reason" class="text-xs text-slate-200 font-mono leading-relaxed"></p>
                 </div>
             </div>
 
-            <!-- Honest Evaluation & Failure Modes Panel -->
-            <div class="bg-slate-800/60 rounded-2xl p-6 border border-amber-500/30 space-y-3">
-                <h3 class="text-sm font-bold text-amber-400 flex items-center gap-2">
-                    <span>🔬</span> System Transparency & Known Failure Modes (ESL Bias)
-                </h3>
-                <p class="text-xs text-slate-300 leading-relaxed">
-                    <strong>Honest Accuracy Assessment:</strong> Statistical detectors analyze sentence length uniformity and academic transition tokens. This instrument explicitly documents failure modes rather than claiming false certainty:
+            <!-- ESL & Failure Mode Transparency Panel -->
+            <div class="glow-card rounded-2xl p-6 border border-amber-500/20 bg-gradient-to-r from-amber-950/10 to-transparent">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="p-1.5 bg-amber-500/10 rounded-lg text-amber-400 text-sm">⚠️</span>
+                    <h3 class="text-sm font-bold text-amber-400">System Transparency & Known Failure Modes (ESL Bias)</h3>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                    Statistical analysis measures structural variance and formulaic markers. True explainability requires acknowledging operational boundaries:
                 </p>
-                <ul class="text-xs text-slate-400 list-disc list-inside space-y-1">
-                    <li><strong class="text-slate-300">ESL False Positives:</strong> Non-native English (ESL) writers often use structured transitions (e.g. <em>furthermore, in conclusion</em>) and uniform sentence lengths taught in academic courses, leading to artificial flags.</li>
-                    <li><strong class="text-slate-300">Polished Human Drafts:</strong> Heavily edited human essays can mimic machine smoothness.</li>
-                    <li><strong class="text-slate-300">Technical Writing:</strong> Highly structured scientific prose naturally exhibits low sentence length variance.</li>
-                </ul>
+                <div class="grid md:grid-cols-3 gap-3 text-xs text-slate-400">
+                    <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+                        <strong class="text-slate-200 block mb-1">ESL Writing Patterns:</strong> Non-native English students often utilize structured connectors (e.g., <em>furthermore, in addition</em>), which can inflate machine indicators.
+                    </div>
+                    <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+                        <strong class="text-slate-200 block mb-1">Polished Human Prose:</strong> Essays thoroughly revised for clarity may display low sentence variance similar to LLM outputs.
+                    </div>
+                    <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+                        <strong class="text-slate-200 block mb-1">Domain Specificity:</strong> Academic or technical prose naturally favors uniform syntax and standardized lexicon.
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -92,7 +136,7 @@
     <script>
         async function analyzeEssay() {
             const text = document.getElementById("essay").value;
-            if (!text.trim()) return alert("Please enter some text first.");
+            if (!text.trim()) return alert("Please enter essay text first.");
 
             const response = await fetch("/analyze", {
                 method: "POST",
@@ -102,20 +146,18 @@
 
             const data = await response.json();
 
-            // Populate Metrics
             document.getElementById("total-words").innerText = data.total_words;
             document.getElementById("sentence-variance").innerText = data.sentence_length_variance;
             document.getElementById("ttr-score").innerText = data.vocabulary_diversity_ttr;
             document.getElementById("ai-transitions").innerText = data.flagged_ai_transitions.length;
 
-            // Sentence Highlighting Logic with Interactive Click Inspection
             const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
             const container = document.getElementById("highlighted-text");
             container.innerHTML = "";
 
             sentences.forEach((sentence, idx) => {
                 const span = document.createElement("span");
-                span.className = "inline-block p-1.5 rounded-md mr-1 mb-1 font-medium text-sm cursor-pointer transition hover:opacity-80 ";
+                span.className = "inline-block p-2 rounded-lg mr-1 mb-1 font-medium text-xs cursor-pointer transition-all duration-200 hover:scale-[1.01] ";
                 
                 const lowerSentence = sentence.toLowerCase();
                 const matchedWords = data.flagged_ai_transitions.filter(word => lowerSentence.includes(word));
@@ -124,19 +166,18 @@
                 let reason = "";
 
                 if (matchedWords.length > 0) {
-                    span.className += "bg-red-950/80 text-red-200 border border-red-800/60";
-                    reason = `Flagged: Contains formal AI transition token(s): "${matchedWords.join(', ')}".`;
+                    span.className += "bg-red-950/70 text-red-200 border border-red-800/80 hover:border-red-500 shadow-sm";
+                    reason = `Flagged Transition Token: Sentence contains formal structural marker(s) [${matchedWords.join(', ')}].`;
                 } else if (wordCount > 20) {
-                    span.className += "bg-amber-950/80 text-amber-200 border border-amber-800/60";
-                    reason = `Warning: High uniformity/length (${wordCount} words). AI generated text often uses uniform long sentences.`;
+                    span.className += "bg-amber-950/70 text-amber-200 border border-amber-800/80 hover:border-amber-500 shadow-sm";
+                    reason = `Monotonous Length Warning: Sentence has ${wordCount} words with minimal structural variance.`;
                 } else {
-                    span.className += "bg-emerald-950/80 text-emerald-200 border border-emerald-800/60";
-                    reason = `Natural Human Rhythm: Short/varied sentence structure (${wordCount} words).`;
+                    span.className += "bg-emerald-950/70 text-emerald-200 border border-emerald-800/80 hover:border-emerald-500 shadow-sm";
+                    reason = `Natural Human Rhythm: High sentence length variance detected (${wordCount} words).`;
                 }
 
                 span.innerText = sentence.trim() + " ";
                 
-                // Click event to show evidence
                 span.onclick = () => {
                     document.getElementById("inspector-reason").innerText = `Sentence #${idx + 1}: "${sentence.trim()}" ➔ ${reason}`;
                     document.getElementById("inspector").classList.remove("hidden");
