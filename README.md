@@ -188,7 +188,7 @@ The benchmark results therefore represent the performance of this implementation
 Clone the repository:
 
 ```bash
-git clone https://github.com/sunejavishakhate/ai-essay-detector.git
+git clone https://github.com/sunejavishakhat10/ai-essay-detector.git
 cd ai-essay-detector
 ```
 
