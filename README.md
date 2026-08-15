@@ -2,6 +2,10 @@
 
 An explainable statistical NLP web application designed to analyze college admission essays, identify machine-generated writing patterns at the sentence and passage level, and provide transparent visual evidence rather than relying on a single opaque AI score.
 
+## 🎥 Demo / Walkthrough
+
+> **Technical Walkthrough:** [https://loom.com/share/e95993d7574d428ca04a8a7f1335b8b8](https://loom.com/share/e95993d7574d428ca04a8a7f1335b8b8)
+
 ## ✨ Features
 
 * **Sentence-Level Analysis:** Breaks an essay into individual sentences and clauses and analyzes each segment independently.
