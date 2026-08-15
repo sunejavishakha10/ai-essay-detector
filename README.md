@@ -243,6 +243,17 @@ Possible future improvements include:
 
 ---
 
+🤖 AI Tool Disclosure
+
+In accordance with the project guidelines, AI assistance (large language models) was utilized transparently across specific development workflows:
+* Benchmark Generation: AI tools were used to generate synthetic test essays for the 30-essay synthetic dataset in the benchmark study.
+* Documentation & Structuring: AI tools assisted in structuring markdown documentation, proofreading technical explanations, and formatting tables.
+* Code Scaffolding: AI tools assisted in debugging and boilerplate syntax structuring.
+
+*All core NLP algorithms (Type-Token Ratio, sentence burstiness, length variance heuristics, and FastAPI endpoint routes) were independently designed, integrated, and validated.*
+
+---
+
 ## 📌 Conclusion
 
 The AI Essay Detector demonstrates how statistical NLP techniques can be used to analyze potential machine-generated writing while keeping the reasoning behind the result visible.
